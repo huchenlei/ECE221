@@ -1,10 +1,11 @@
 function [ sum ] = my_intergral( x1, x2 )
-x = linspace(x1, x2, 10000);
+accuracy = 10000;
+x = linspace(x1, x2, accuracy);
 y = exp(-x.^2);
 
 sum = 0;
 for i = 1:length(x)
-    sum = sum + y(i) * (x2 - x1)/10000;
+    sum = sum + y(i) * (x2 - x1)/accuracy;
 end
 fprintf('calculated value: %d\n', sum);
 
