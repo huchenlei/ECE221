@@ -6,5 +6,4 @@ plot(x, y);
 grid on
 title('Acceleration of car')
 xlabel('Time (s)')
-ylabel('Acceleration (m/s^2)')
-axis([0 5 0 1])
+ 

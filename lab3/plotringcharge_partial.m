@@ -1,6 +1,6 @@
 function [ ] = plotringcharge_partial()
 %     epsilon = 8.854e-12;
-    a = 0.5e-2;
+    a = 0.5;
     N = 500;
     y1 = 0.1;
     y2 = 2;

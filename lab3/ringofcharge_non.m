@@ -1,4 +1,4 @@
- function [ Etot, Ex, Ey, Ez ] = ringofcharge( a, rho_l, x, y, z, N )
+function [ Etot, Ex, Ey, Ez ] = ringofcharge_non( a, rho_l, x, y, z, N )
     epsilon = 8.854e-12;
     dt = 2*pi/N;
     tprime = linspace(0, 2*pi, N + 1);
@@ -10,13 +10,13 @@
     for k=1:N
         delta_x = x - a * cos(tprime(k));
         delta_y = y - a * sin(tprime(k));
-        integrand = a * dt/((delta_x^2 + delta_y^2 + z^2)^(3/2));
+        integrand = a * rho_l(k) * dt/((delta_x^2 + delta_y^2 + z^2)^(3/2));
         dEx(k) = integrand * delta_x;
         dEy(k) = integrand * delta_y;
         dEz(k) = integrand * z;
     end 
     
-    factor = (rho_l/(4 * pi * epsilon));
+    factor = (1/(4 * pi * epsilon));
     Ex = factor * sum(dEx);
     Ey = factor * sum(dEy);
     Ez = factor * sum(dEz);
