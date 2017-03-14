@@ -1,4 +1,4 @@
- function [ Etot, V, Ex, Ey, Ez ] = sphere_of_charge( a, rho_s, x, y, z, N )
+ function [ Etot, V, Ex, Ey, Ez ] = sphere_of_charge_non( a, rho_s, x, y, z, N )
     epsilon = 8.854e-12;
     dtheta = pi/N;
     dphi = 2*pi/N;
@@ -30,7 +30,7 @@
         dEy_u(u) = common_factor*(y-y_r);
         dEz_u(u) = common_factor*(z-z_r);
 
-        dV_u(u) = (a^2)*sin(theta(u))*rho_s*dtheta*dphi/(4*pi*epsilon*R);
+        dV_u(u) = (a^2)*sin(theta(u))*rho_s(u, v)*dtheta*dphi/(4*pi*epsilon*R);
       end
       dEx_v(v) = sum(dEx_u);
       dEy_v(v) = sum(dEy_u);
