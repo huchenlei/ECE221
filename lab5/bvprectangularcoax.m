@@ -44,25 +44,50 @@ function [V,Ex,Ey,C,We,We2,gridpointsx,gridpointsy,innerx,innery,outerx,outery] 
     Vold = V(2:Nx-1, 2:Ny-1);
     for x = 2 : Nx - 1
       for y = 2 : Ny - 1
-        if (x < innerstartx || x > innerendx) || (y < innerstarty || y > innerendy)
+         if (x < innerstartx || x > innerendx) || (y < innerstarty || y > innerendy)
+%        if (x <= innerstartx || x >= innerendx) || (y <= innerstarty || y >= innerendy)
           V(x, y) = (1/4)*(V(x+1, y) + V(x-1, y) + V(x, y+1) + V(x, y-1));
         end
       end
     end
     Vnew = V(2:Nx-1, 2:Ny-1);
     maxdev = max(max(abs(100*(Vnew - Vold) ./ (Vnew))));
-    %fprintf('maxdev is %d\n', maxdev);
+    %fprintf('maxdev is %d\n', maxdev);  
   end
   [Ey, Ex] = gradient(-V, hx, hy);
+  
+  offsetx = 0;
+  offsety = 0;
 
+  innerstartx = innerstartx - offsetx;
+  innerendx = innerendx + offsetx;
+  innerstarty = innerstarty - offsety;
+  innerendy = innerendy + offsety;
+  
   Qinner = 0;
   for x = innerstartx : innerendx
       for y = innerstarty : innerendy
-          if (x == innerstartx || x == innerendx)
-             Qinner = Qinner + abs(V(x-1, y) - V(x+1, y)) * eo * er;
-          end
-          if (y == innerstarty || y == innerendy)
-             Qinner = Qinner + abs(V(x, y-1) - V(x, y+1)) * eo * er; 
+%           if (x == innerstartx || x == innerendx) || (y == innerstarty || y == innerendy)
+%               Qinner = Qinner + (Ex(x,y) ^ 2 + Ey(x,y) ^ 2)^(1/2) * eo * er * hy;            
+%           end
+%           if (x == innerstartx || x == innerendx) && (y == innerstarty || y == innerendy)
+%               Qinner = Qinner + ((V(x-1, y) - V(x+1, y))^2 + (V(x, y-1) - V(x, y+1))^2)^(1/2) *eo *er;
+          if (x == innerstartx && y == innerstarty) 
+              Qinner = Qinner + abs(V(x, y) - V(x-1, y-1)) * eo * er;
+          elseif (x == innerstartx && y == innerendy) 
+              Qinner = Qinner + abs(V(x, y) - V(x-1, y+1)) * eo * er;
+          elseif (x == innerendx && y == innerstarty) 
+              Qinner = Qinner + abs(V(x, y) - V(x+1, y-1)) * eo * er;          
+          elseif (x == innerendx && y == innerendy) 
+              Qinner = Qinner + abs(V(x, y) - V(x+1, y+1)) * eo * er;
+          elseif (x == innerstartx)
+             Qinner = Qinner + abs(V(x, y) - V(x-1, y)) * eo * er;
+          elseif(y == innerstarty)
+             Qinner = Qinner + abs(V(x, y) - V(x, y-1)) * eo * er; 
+          elseif (x == innerendx)
+             Qinner = Qinner + abs(V(x, y) - V(x+1, y)) * eo * er;
+          elseif(y == innerendy)
+             Qinner = Qinner + abs(V(x, y) - V(x, y+1)) * eo * er; 
           end
       end
   end
