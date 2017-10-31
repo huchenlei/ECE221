@@ -1,5 +1,5 @@
 # ECE221
-## Electric and Magenetic Fields
+## Electric and Magnetic Fields
 University of Toronto ECE221 2017 S<br>
 
 COURSE OBJECTIVES: Electric and magnetic fields are not only involved in many physical phenomena (strength of materials, bio- electricity, lightning etc.), but they are also underpinning current and emerging technologies such as wire- less/wireline communications, radio-frequency identification (RFID) systems, magnetic levitation, magnetic resonance imaging (MRI), wireless power transfer (and the related concept of wireless batteries), near-field communications (NFC) and micro-electromechanical systems (MEMS). This course is aimed at providing stu- dents with the ability to understand the fundamentals of electricity and magnetism and their relation to some of their most exciting current applications.
